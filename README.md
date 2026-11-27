@@ -54,3 +54,4 @@ curl http://$(minikube ip):30081/actuator/health
   sur `/actuator/health/readiness` et `/actuator/health/liveness`, exécution non-root (UID 1000),
   sans élévation de privilèges et sans capabilities Linux.
 - `k8s/service.yaml` : Service NodePort exposé sur le port 30081.
+
