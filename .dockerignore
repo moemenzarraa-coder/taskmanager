@@ -1,0 +1,6 @@
+.git
+src
+*.md
+zap
+.idea
+.vscode
