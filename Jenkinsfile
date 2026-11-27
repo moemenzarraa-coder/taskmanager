@@ -38,8 +38,8 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonarcloud') {
-                    sh '$MAVEN_HOME/bin/mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=$SONAR_ORG -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=300'
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh '$MAVEN_HOME/bin/mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=$SONAR_ORG -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=300'
                 }
             }
         }
