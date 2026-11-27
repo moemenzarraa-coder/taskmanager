@@ -40,3 +40,17 @@ L'image utilise `eclipse-temurin:17-jre-alpine` (image officielle, JRE uniquemen
 s'exécute avec l'utilisateur non-root `app`.
 
 Image publiée : `moemenzarraa/taskmanager` sur Docker Hub.
+
+## Déploiement Kubernetes (Minikube)
+
+~~~bash
+minikube start --driver=docker --memory=2048 --cpus=2 --embed-certs
+kubectl apply -f k8s/
+kubectl get pods
+curl http://$(minikube ip):30081/actuator/health
+~~~
+
+- `k8s/deployment.yaml` : 1 réplica, requests/limits CPU et mémoire, readiness et liveness probes
+  sur `/actuator/health/readiness` et `/actuator/health/liveness`, exécution non-root (UID 1000),
+  sans élévation de privilèges et sans capabilities Linux.
+- `k8s/service.yaml` : Service NodePort exposé sur le port 30081.
